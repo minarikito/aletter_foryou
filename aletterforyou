@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensaje para Alex | Cyberpunk Edgerunners</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+    --cyan: #00f0ff;
+    --pink: #ff2d95;
+    --yellow: #fcee0a;
+    --green: #39ff88;
+    --black: #05070d;
+    --panel: rgba(8, 12, 25, .97);
+    --white: #eafaff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 19px;
+    background:
+        linear-gradient(rgba(2, 4, 12, .83), rgba(2, 4, 12, .95)),
+        url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85")
+        center / cover fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0, 240, 255, .025) 4px
+    );
+}
+
+header {
+    text-align: center;
+    padding: 30px 12px 15px;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: clamp(25px, 5vw, 44px);
+    letter-spacing: 2px;
+    color: var(--yellow);
+    text-shadow: 3px 3px var(--pink), 0 0 20px var(--yellow);
+}
+
+header p {
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: 5px;
+}
+
+.contenedor {
+    width: min(720px, 94%);
+    margin: 15px auto 40px;
+}
+
+.pantalla {
+    display: none;
+    background: var(--panel);
+    border: 1px solid var(--cyan);
+    padding: clamp(20px, 5vw, 38px);
+    box-shadow: 0 0 18px rgba(0, 240, 255, .12),
+                inset 0 0 25px rgba(0, 240, 255, .025);
+    clip-path: polygon(
+        0 0, 97% 0, 100% 4%, 100% 100%,
+        3% 100%, 0 96%
+    );
+}
+
+.pantalla.activa {
+    display: block;
+    animation: entrar .4s ease;
+}
+
+@keyframes entrar {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.numero {
+    color: var(--pink);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(21px, 4vw, 29px);
+    line-height: 1.5;
+    color: var(--cyan);
+    text-shadow: 0 0 12px rgba(0, 240, 255, .3);
+}
+
+p {
+    line-height: 1.75;
+}
+
+.separador {
+    height: 2px;
+    background: linear-gradient(
+        90deg, var(--pink), var(--cyan), transparent
+    );
+    margin: 22px 0;
+}
+
+.etiqueta {
+    color: var(--yellow);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.botones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+button {
+    width: 100%;
+    padding: 15px 13px;
+    color: var(--white);
+    background: rgba(0, 240, 255, .04);
+    border: 1px solid var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: .6px;
+    line-height: 1.7;
+    cursor: pointer;
+    text-align: left;
+    transition: .2s;
+}
+
+button:hover {
+    color: var(--black);
+    background: var(--cyan);
+    box-shadow: 0 0 18px rgba(0, 240, 255, .35);
+}
+
+.btn-pink {
+    border-color: var(--pink);
+}
+
+.btn-pink:hover {
+    background: var(--pink);
+}
+
+.btn-yellow {
+    border-color: var(--yellow);
+}
+
+.btn-yellow:hover {
+    background: var(--yellow);
+}
+
+.btn-green {
+    border-color: var(--green);
+}
+
+.btn-green:hover {
+    background: var(--green);
+}
+
+.respuesta {
+    display: none;
+    padding: 18px;
+    margin-top: 23px;
+    background: rgba(255, 45, 149, .07);
+    border-left: 3px solid var(--pink);
+    line-height: 1.8;
+    animation: entrar .3s ease;
+}
+
+.respuesta.visible {
+    display: block;
+}
+
+.respuesta strong {
+    color: var(--yellow);
+}
+
+.oculto {
+    display: none !important;
+}
+
+.mensaje {
+    line-height: 1.9;
+}
+
+.firma {
+    color: var(--pink);
+    text-align: right;
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 30px;
+}
+
+.nota {
+    font-size: 15px;
+    color: #aab8d0;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 12px 25px;
+    color: #8290a7;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 17px;
+    }
+
+    .pantalla {
+        padding: 22px 17px;
+    }
+
+    button {
+        font-size: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">CYBERPUNK</div>
+    <p>EDGERUNNERS // NIGHT CITY</p>
+</header>
+
+<main class="contenedor">
+
+    <!-- ENCUADRE 1 -->
+    <section class="pantalla activa" id="pantalla1">
+
+        <div class="numero">01 // CONEXIÓN ESTABLECIDA</div>
+
+        <h1>¿Hola, Alex, cómo estás?</h1>
+
+        <p>
+            Antes de comenzar, quiero saber cómo te encuentras.
+            Puedes responder con sinceridad.
+        </p>
+
+        <div class="separador"></div>
+
+        <span class="etiqueta">SELECCIONA TU ESTADO</span>
+
+        <div class="botones">
+            <button class="btn-green"
+                onclick="estado('bien')">
+                01. BIEN
+            </button>
+
+            <button
+                onclick="estado('regular')">
+                02. MÁS O MENOS
+            </button>
+
+            <button class="btn-pink"
+                onclick="estado('mal')">
+                03. MAL
+            </button>
+        </div>
+
+        <div class="respuesta" id="respuestaEstado"></div>
+
+        <div class="botones oculto" id="continuar1">
+            <button class="btn-yellow" onclick="ir(2)">
+                CONTINUAR →
+            </button>
+        </div>
+    </section>
+
+
+    <!-- ENCUADRE 2 -->
+    <section class="pantalla" id="pantalla2">
+
+        <div class="numero">02 // MENSAJE ENTRANTE</div>
+
+        <h1>Quiero hablar contigo.</h1>
+
+        <div class="separador"></div>
+
+        <p>
+            Quiero hablar contigo. Sé que podría hacerlo en persona,
+            pero no tengo la suficiente fuerza de voluntad para hacerlo.
+        </p>
+
+        <p>
+            Por eso decidí escribirte. Hay cosas que me cuesta
+            expresar mirándote a los ojos y prefiero hacerlo de esta manera.
+        </p>
+
+        <p class="nota">
+            Tú decides si quieres continuar. No tienes que leerlo
+            si no te sientes preparado.
+        </p>
+
+        <div class="botones">
+            <button class="btn-green" onclick="decision('leer')">
+                01. SÍ, QUIERO LEER LO QUE TIENES EN MENTE.
+            </button>
+
+            <button class="btn-pink" onclick="decision('tiempo')">
+                02. NECESITO TOMAR UN TIEMPO PARA PENSAR.
+            </button>
+        </div>
+
+        <div class="respuesta" id="respuestaDecision"></div>
+
+        <div class="botones oculto" id="continuar2">
+            <button class="btn-yellow" onclick="ir(3)">
+                LEER MI MENSAJE →
+            </button>
+        </div>
+
+        <div class="botones oculto" id="regresar2">
+            <button onclick="ir(1)">
+                ← VOLVER AL INICIO
+            </button>
+        </div>
+    </section>
+
+
+    <!-- ENCUADRE 3 -->
+    <section class="pantalla" id="pantalla3">
+
+        <div class="numero">03 // ARCHIVO PERSONAL: MEL</div>
+
+        <h1>Lo que llevo dentro...</h1>
+
+        <p class="nota">
+            NIGHT CITY // TRANSMISIÓN PRIVADA
+        </p>
+
+        <div class="separador"></div>
+
+        <div class="mensaje">
+
+            <p>
+                Bueno, sé que pasaron muchas cosas estos días,
+                mi cabeza piensa que todo fue mi culpa y tal vez
+                sea cierto, pero no lo sé.
+            </p>
+
+            <p>
+                Esto me duele mucho en el alma porque te tengo un
+                cariño como a mi mejor amigo, como a alguien especial
+                en mi vida. Ante todo esto me he sentido mal, tal vez
+                porque ya no tengo esa amistad que teníamos antes.
+            </p>
+
+            <p>
+                Lo más probable es que ya no me quieras cerca de tu vida.
+                Será muy doloroso porque tengo un apego muy grande hacia ti...
+            </p>
+
+            <p>
+                Y si ya no se puede rehacer esa amistad que teníamos,
+                solo quiero que sepas que fuiste ese pedacito que hacía
+                falta en mi vida. Te quiero mucho, ratita.
+            </p>
+
+            <p>
+                No sé si las cosas puedan volver a ser como antes,
+                pero necesitaba decirte lo importante que has sido
+                para mí. No quiero fingir que nuestra amistad no
+                significó nada, porque sí significó mucho.
+            </p>
+
+            <p>
+                No te escribo para obligarte a quedarte ni para
+                hacerte sentir culpable. Solo quería que conocieras
+                lo que siento y que pudieras entender mi lado.
+            </p>
+
+            <p>
+                Si necesitas tiempo, lo voy a respetar. Y si las
+                cosas cambian entre nosotros, aunque me duela,
+                intentaré aceptar tu decisión.
+            </p>
+
+            <p>
+                Gracias por haber sido parte de mi vida, por los
+                momentos que compartimos y por ese lugar tan especial
+                que llegaste a tener en ella.
+            </p>
+
+            <p>
+                Y si ya no se puede rehacer esa amistad que teníamos,
+                solo quiero que sepas que fuiste ese pedacito que hacía
+                falta en mi vida.
+            </p>
+
+            <p>
+                Te quiero mucho, ratita.
+            </p>
+
+        </div>
+
+        <div class="separador"></div>
+
+        <p class="nota">
+            FIN DEL MENSAJE // ESPERANDO RESPUESTA
+        </p>
+
+        <button class="btn-yellow" onclick="ir(4)">
+            CONTINUAR A LA RESPUESTA DE ALEX →
+        </button>
+    </section>
+
+
+    <!-- ENCUADRE 4 -->
+    <section class="pantalla" id="pantalla4">
+
+        <div class="numero">04 // RESPUESTA DEL DESTINATARIO</div>
+
+        <h1>¿Qué quieres hacer, Alex?</h1>
+
+        <p>
+            Gracias por leer hasta aquí. No tienes que responder
+            inmediatamente. Elige la respuesta que represente
+            lo que realmente piensas.
+        </p>
+
+        <div class="separador"></div>
+
+        <span class="etiqueta">SELECCIONA TU RESPUESTA</span>
+
+        <div class="botones">
+
+            <button class="btn-yellow"
+                onclick="respuestaFinal(1)">
+                01. NECESITO PENSAR LAS COSAS CON TIEMPO
+                ANTES DE RESPONDER.
+            </button>
+
+            <button class="btn-pink"
+                onclick="respuestaFinal(2)">
+                02. LA VERDAD NO QUIERO VOLVER A HABLAR CONTIGO.
+            </button>
+
+            <button class="btn-green"
+                onclick="respuestaFinal(3)">
+                03. SÍ QUIERO VOLVER A HABLAR CONTIGO,
+                PERO SERÁ DE POCO A POCO Y CON LÍMITES.
+            </button>
+
+        </div>
+
+        <div class="respuesta" id="respuestaFinal"></div>
+
+        <div class="botones oculto" id="reiniciar">
+            <button class="btn-yellow" onclick="reiniciarTodo()">
+                ↻ VOLVER AL INICIO
+            </button>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    NIGHT CITY // 2077 // PRIVATE TRANSMISSION
+</footer>
+
+<script>
+function ir(numero) {
+    document.querySelectorAll('.pantalla').forEach(function(pantalla) {
+        pantalla.classList.remove('activa');
+    });
+
+    document.getElementById('pantalla' + numero)
+        .classList.add('activa');
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function estado(opcion) {
+    const caja = document.getElementById('respuestaEstado');
+    const continuar = document.getElementById('continuar1');
+
+    const mensajes = {
+        bien: 'Me alegro de que estés bien.',
+        regular: 'Y eso, ¿qué tienes, ratita?',
+        mal: 'Espero que te mejores pronto por todo lo que estés pasando. Te mando un abracito.'
+    };
+
+    caja.textContent = mensajes[opcion];
+    caja.classList.add('visible');
+    continuar.classList.remove('oculto');
+}
+
+function decision(opcion) {
+    const caja = document.getElementById('respuestaDecision');
+    const continuar = document.getElementById('continuar2');
+    const regresar = document.getElementById('regresar2');
+
+    continuar.classList.add('oculto');
+    regresar.classList.add('oculto');
+    caja.classList.add('visible');
+
+    if (opcion === 'leer') {
+        caja.textContent =
+            'Me alegro de que quieras escucharme, esto será breve, no te voy a consumir mucho tiempo de tu vida.';
+
+        continuar.classList.remove('oculto');
+    }
+
+    if (opcion === 'tiempo') {
+        caja.textContent =
+            'Oh, okey, no hay problema, puedes volver a leer esto cuando estés mejor. No tienes que responder ahora.';
+
+        regresar.classList.remove('oculto');
+    }
+}
+
+function respuestaFinal(opcion) {
+    const caja = document.getElementById('respuestaFinal');
+    const reiniciar = document.getElementById('reiniciar');
+
+    const mensajes = {
+        1: {
+            titulo: 'RESPUESTA 01 // TIEMPO PARA PENSAR',
+            texto: 'Está bien, Alex. Entiendo que necesites tiempo para ordenar tus pensamientos. No tienes que darme una respuesta ahora ni sentirte presionado. Tómate el tiempo que necesites; respetaré tu espacio.'
+        },
+
+        2: {
+            titulo: 'RESPUESTA 02 // DESPEDIDA',
+            texto: 'Entiendo, Alex. Aunque me duela, respeto tu decisión y no voy a obligarte a mantener una relación que ya no deseas. Gracias por los momentos que compartimos y por haber formado parte de mi vida. Te deseo lo mejor.'
+        },
+
+        3: {
+            titulo: 'RESPUESTA 03 // UNA NUEVA ETAPA',
+            texto: 'Me alegra saber que quieres volver a hablar conmigo. Entiendo que las cosas no pueden ser como antes de un día para otro. Podemos ir poco a poco, respetando nuestros límites, nuestro espacio y lo que ambos necesitemos para sentirnos cómodos.'
+        }
+    };
+
+    const seleccion = mensajes[opcion];
+
+    caja.innerHTML =
+        '<strong>' + seleccion.titulo + '</strong><br><br>';
+
+    const texto = document.createElement('span');
+    texto.textContent = seleccion.texto;
+    caja.appendChild(texto);
+
+    caja.classList.add('visible');
+    reiniciar.classList.remove('oculto');
+}
+
+function reiniciarTodo() {
+    document.querySelectorAll('.respuesta').forEach(function(caja) {
+        caja.classList.remove('visible');
+        caja.textContent = '';
+    });
+
+    document.querySelectorAll('.oculto').forEach(function(elemento) {
+        elemento.classList.add('oculto');
+    });
+
+    ir(1);
+}
+</script>
+</body>
+</html>
